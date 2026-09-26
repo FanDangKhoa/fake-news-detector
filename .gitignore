@@ -1,0 +1,1 @@
+node_modules/ echo .env echo .env.local echo dist/ echo .next/ echo *.log echo .DS_Store 
