@@ -7,18 +7,35 @@ type Item = {
   id: number;
   text: string;
   label: 'fake' | 'real';
+  verdict: 'fake' | 'real' | 'uncertain';
   confidence: number;
   createdAt: string;
 };
 
-type Filter = 'all' | 'fake' | 'real';
+type Filter = 'all' | 'fake' | 'real' | 'uncertain';
 
 const API = 'http://localhost:3001';
+
+const VERDICT = {
+  fake: {
+    label: 'Nghi ngờ tin giả',
+    color: '#E8576B',
+  },
+  real: {
+    label: 'Có vẻ tin thật',
+    color: '#3FBE85',
+  },
+  uncertain: {
+    label: 'Chưa đủ căn cứ để kết luận',
+    color: '#9AA3B5',
+  },
+} as const;
 
 const filters: { key: Filter; label: string }[] = [
   { key: 'all', label: 'Tất cả' },
   { key: 'fake', label: 'Nghi ngờ tin giả' },
   { key: 'real', label: 'Có vẻ tin thật' },
+  { key: 'uncertain', label: 'Chưa kết luận' },
 ];
 
 export default function HistoryPage() {
@@ -61,7 +78,7 @@ export default function HistoryPage() {
     setReloadKey((k) => k + 1);
   };
 
-  const shown = filter === 'all' ? items : items.filter((i) => i.label === filter);
+  const shown = filter === 'all' ? items : items.filter((i) => i.verdict === filter);
 
   return (
     <main className="px-4 py-10 md:py-14">
@@ -117,8 +134,8 @@ export default function HistoryPage() {
         {!loading && !error && shown.length > 0 && (
           <ul className="border-t border-[#232A3A]">
             {shown.map((item) => {
-              const fake = item.label === 'fake';
-              const color = fake ? '#E8576B' : '#3FBE85';
+              const v = VERDICT[item.verdict];
+              const color = v.color;
               return (
                 <li
                   key={item.id}
@@ -134,7 +151,7 @@ export default function HistoryPage() {
                     </p>
                     <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[#7C8494]">
                       <span style={{ color }}>
-                        {fake ? 'Nghi ngờ tin giả' : 'Có vẻ tin thật'}
+                        {v.label}
                       </span>
                       <span style={{ fontFamily: 'var(--font-mono)' }}>
                         {Math.round(item.confidence * 100)}%

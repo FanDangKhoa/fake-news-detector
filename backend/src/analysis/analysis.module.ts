@@ -7,7 +7,7 @@ import { Analysis } from './entities/analysis.entity';
 
 @Module({
   imports: [
-    HttpModule.register({ baseURL: 'http://localhost:8000', timeout: 5000 }),
+    HttpModule.register({ baseURL: 'http://localhost:8000', timeout: 20000 }),
     TypeOrmModule.forFeature([Analysis]),
   ],
   controllers: [AnalysisController],
