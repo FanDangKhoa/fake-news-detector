@@ -1,8 +1,15 @@
-node_modules/ echo .env echo .env.local echo dist/ echo .next/ echo *.log echo .DS_Store 
-
+node_modules/
+dist/
+.next/
+*.log
+*.tsbuildinfo
+.env
+.env.local
+.DS_Store
 ml/venv/
 ml/dataset-raw/
 ml/phobert_model/
 ml/evidence_embeddings.npy
 ml/evidence_corpus.parquet
-ml/__pycache__/
+__pycache__/
+*.zip

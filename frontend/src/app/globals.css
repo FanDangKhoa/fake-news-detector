@@ -1,50 +1,13 @@
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+@import "tailwindcss";
+
+body {
+  background: #0b0e16;
 }
-.header {
-  width: 100%;
-  padding: 10px 0;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-}
-.form-container {
-  display: flex;
-  border-radius: 999px;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid #ccc;
-}
-.relative {
-  align-items: center;
-  display: flex;
-  width: 80%;
-  position: relative;
-}
-.relative__input {
-  width: 100%;
-  height: 40px;
-  border-radius: 999px;
-  border: transparent;
-}
-.relative__mic-button {
-  border: none;
-  color: #ccc;
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.relative__mic-button:hover {
-  cursor: pointer;
-  background: #fff;
-  color: black;
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
