@@ -11,7 +11,7 @@ from underthesea import word_tokenize
 
 from claims import extract_claims
 
-PHOBERT_DIR = "phobert_model"
+PHOBERT_DIR = os.environ.get("PHOBERT_DIR", "phobert_model")
 MAX_LEN = 256
 
 # Cấu hình tìm bằng chứng
@@ -36,6 +36,12 @@ device = torch.device("cuda" if use_cuda else "cpu")
 
 # ---------- Bộ phân loại giả/thật ----------
 use_phobert = os.path.isdir(PHOBERT_DIR)
+
+# Hệ số nhiệt độ hiệu chỉnh độ tin cậy (do calibrate_aug.py tạo ra, mặc định 1.0)
+TEMPERATURE = 1.0
+_temp_file = os.path.join(PHOBERT_DIR, "temperature.txt")
+if use_phobert and os.path.exists(_temp_file):
+    TEMPERATURE = float(open(_temp_file).read().strip())
 if use_phobert:
     from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
@@ -62,7 +68,7 @@ if evidence_ready:
         E = E.half()
 
 print(
-    f"Phân loại: {MODEL_NAME} | Tìm bằng chứng: "
+    f"Phân loại: {MODEL_NAME} ({PHOBERT_DIR}, T={TEMPERATURE:.2f}) | Tìm bằng chứng: "
     f"{'bật (' + str(len(corpus_records)) + ' đoạn)' if evidence_ready else 'tắt'} | Thiết bị: {device}"
 )
 
@@ -124,7 +130,7 @@ def predict(req: AnalyzeRequest):
         ).to(device)
         with torch.inference_mode():
             logits = phobert(**enc).logits
-        probs = torch.softmax(logits.float(), dim=-1)[0]
+        probs = torch.softmax(logits.float() / TEMPERATURE, dim=-1)[0]
         label_idx = int(probs.argmax())
         confidence = float(probs[label_idx])
     else:
@@ -145,4 +151,4 @@ def predict(req: AnalyzeRequest):
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "model": MODEL_NAME, "evidence": evidence_ready}
+    return {"status": "ok", "model": MODEL_NAME, "temperature": TEMPERATURE, "evidence": evidence_ready}

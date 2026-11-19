@@ -1,0 +1,3 @@
+# Mỗi dòng MỘT tin nhắn lừa đảo hoặc tin giả THẬT (nhãn 1).
+# Dòng trống và dòng bắt đầu bằng dấu # sẽ bị bỏ qua.
+# Trước khi dán: xóa số điện thoại, tên người, số tài khoản và đường dẫn.
