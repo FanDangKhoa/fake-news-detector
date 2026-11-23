@@ -3,3 +3,4 @@ venv\Scripts\Activate.ps1
 python build_augmented.py
 python train_phobert_aug.py
 python calibrate_aug.py
+ uvicorn app:app --port 8000
