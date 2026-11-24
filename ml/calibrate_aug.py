@@ -94,7 +94,7 @@ for set_name, L, y in (("Test gốc (45)", L_test, y_test), ("Kiểm tra lừa �
     p = softmax(L / T, axis=1)
     conf, pred = p.max(axis=1), p.argmax(axis=1)
     print(f"[{set_name}]  ngưỡng | được kết luận | độ chính xác phần được kết luận")
-    for th in (0.6, 0.7, 0.8, 0.9, 0.95):
+    for th in (0.8, 0.82, 0.84, 0.86, 0.88, 0.9, 0.92):
         m = conf >= th
         if m.sum() == 0:
             print(f"   {th:.2f}  | 0.0%          | không có mẫu")

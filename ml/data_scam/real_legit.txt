@@ -1,3 +1,4 @@
 # Mỗi dòng MỘT tin nhắn hoặc đoạn tin hợp lệ THẬT (nhãn 0).
 # Nên chọn loại dễ nhầm với lừa đảo: thông báo ngân hàng, giao hàng, khuyến mại, cảnh báo lừa đảo chính thống.
 # Dòng trống và dòng bắt đầu bằng dấu # sẽ bị bỏ qua.
+Địa chỉ chính của Trường Đại học Nguyễn Tất Thành là 300A Nguyễn Tất Thành, phường Xóm Chiếu, Quận 4, TP. Hồ Chí Minh.,0
